@@ -1,6 +1,7 @@
 # Facebook 2.0
 #### Framework
-We maken gebruik van React-create-app voor de basis structuur van de applicatie.
+We maken gebruik van React-create-app voor de basis structuur van de applicatie.<br>
+Bootstrap wordt gebruikt voor styling
 
 #### Model
 Alle data wordt in de states van de verschillende componenten bijgehouden. 
@@ -36,4 +37,4 @@ facebooktweepuntnul
 ```
 
 #### Flow
-![alt text](./public/favicon.ico "Logo Title Text 1")
+![alt text](./images/IMG_20170317_130347.jpg "Logo Title Text 1")
