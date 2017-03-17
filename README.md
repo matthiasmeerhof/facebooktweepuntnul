@@ -1,7 +1,8 @@
 # Facebook 2.0
 #### Framework
 We maken gebruik van React-create-app voor de basis structuur van de applicatie.<br>
-Bootstrap wordt gebruikt voor styling
+Bootstrap wordt gebruikt voor styling.<br>
+React-router wordt gebruikt voor routing.
 
 #### Model
 Alle data wordt in de states van de verschillende componenten bijgehouden. 
