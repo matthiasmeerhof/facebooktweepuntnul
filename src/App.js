@@ -1,21 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PostForm from './components/PostForm';
+import { BrowserRouter } from 'react-router-dom'
+import { Route } from 'react-router'
+import Tmp from './components/Tmp';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    constructor() {
+        super();
+        this.state = {
+            name : '',
+            posts : []
+        };
+        this.postHandler = this.postHandler.bind(this);
+    }
+
+    postHandler(post, title){
+        let posts = this.state.posts;
+        let newPost = {
+            title : title,
+            post: post,
+            author: this.state.name,
+            comments: [],
+            likes : 0
+        };
+        posts.push(newPost);
+        this.setState({
+            name : this.state.name,
+            posts : posts
+        });
+        console.log(this.state);
+    }
+
+    render() {
+        return (
+            <BrowserRouter>
+                <div>
+                    <Route exact path="/" component={Tmp}/>
+                    <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
+                </div>
+            </BrowserRouter>
+        )
+    }
 }
 
 export default App;
