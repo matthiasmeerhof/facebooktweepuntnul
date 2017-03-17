@@ -7,6 +7,10 @@ React-router wordt gebruikt voor routing.
 #### Model
 Alle data wordt in de states van de verschillende componenten bijgehouden. 
 <br>De applicatie blijft dus voor nu nog puur client-sided en alle data gaat verloren na het afsluiten van de applicatie.
+<br>De App.js houdt een state bij. Hierin zit het volgende:
+* name van de ingelogde gebruiker
+* alle comments, en per comment een name, title, post, [comments], 
+
 
 #### Project structuur
 Verschilende componenten worden bijgehouden in de map ./components
@@ -19,12 +23,11 @@ facebooktweepuntnul
 |___src
 |   |   App.css
 |   |   App.js
-|   |   ...
-|
-|___components
-|   |   [Component].js
-|   |   [Component].js
-|   |   ...
+|   |
+|   |___components
+|       |   [Component].js
+|       |   [Component].js
+|       |   ...
 |
 |___public
 |   |   favicon.ico
