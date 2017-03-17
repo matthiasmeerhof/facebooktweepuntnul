@@ -3,7 +3,7 @@ import './App.css';
 import PostForm from './components/PostForm';
 import { BrowserRouter } from 'react-router-dom'
 import { Route } from 'react-router'
-import Tmp from './components/Tmp';
+import Overview from './components/Overview';
 
 class App extends Component {
     constructor() {
@@ -29,14 +29,14 @@ class App extends Component {
             name : this.state.name,
             posts : posts
         });
-        console.log(this.state);
     }
 
     render() {
+        console.log(this.state);
         return (
             <BrowserRouter>
                 <div>
-                    <Route exact path="/" component={Tmp}/>
+                    <Route exact path="/" component={() => (<Overview posts={this.state.posts} />)}/>
                     <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
                 </div>
             </BrowserRouter>

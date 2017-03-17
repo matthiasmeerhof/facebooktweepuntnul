@@ -11,8 +11,6 @@ class PostForm extends Component {
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handlePostChange = this.handlePostChange.bind(this);
         this.handleForm = this.handleForm.bind(this);
-        console.log(this.props);
-        console.log(props);
     }
 
     handleForm(e) {
