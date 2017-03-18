@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class PostForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             title : '',
             post : ''
@@ -15,6 +15,7 @@ class PostForm extends Component {
 
     handleForm(e) {
         e.preventDefault();
+        this.props.postHandler(this.state.post, this.state.title);
     }
 
     handleTitleChange(e) {
