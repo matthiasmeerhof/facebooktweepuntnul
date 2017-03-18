@@ -19,7 +19,7 @@ class App extends Component {
             localStorage.setItem("posts", JSON.stringify([]));
         }
         if(localStorage.getItem("name") !== null) {
-            localStorage.setItem("name", '');
+            localStorage.setItem("name", 'Brent Lobbezoo');
         }
         this.postHandler = this.postHandler.bind(this);
     }
@@ -29,7 +29,7 @@ class App extends Component {
         let newPost = {
                 title : title,
                 post: post,
-                author: this.state.name,
+                author: localStorage.getItem('name'),
                 comments: [],
                 likes : 0
             };
@@ -43,8 +43,10 @@ class App extends Component {
                 <div>
                     <Route path="/" component={NavBar} />
                     <Route exact path="/" component={() => (<Overview posts={JSON.parse(localStorage.getItem('posts'))} />)}/>
-                    <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
-                    <Route path="/login" component={Login} />
+                    <div className="container overall">
+                        <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
+                        <Route path="/login" component={Login} />
+                    </div>
                 </div>
             </BrowserRouter>
         )

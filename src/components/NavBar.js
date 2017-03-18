@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, FormControl, FormGroup, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, FormControl, FormGroup, Button, Glyphicon } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
@@ -16,6 +16,9 @@ class NavBar extends Component {
                     <NavItem eventKey={2}><Link to="#">Profiel</Link></NavItem>
                 </Nav>
                 <Nav pullRight>
+                    <Navbar.Text>
+                        <Glyphicon glyph="user" /> {localStorage.getItem('name')}
+                    </Navbar.Text>
                     <NavItem eventKey={3}><Link to="#">Logout</Link></NavItem>
                 </Nav>
                 <Navbar.Collapse>

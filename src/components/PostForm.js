@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { FormGroup, ControlLabel, Button, FormControl } from 'react-bootstrap';
 
 class PostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title : '',
-            post : ''
+            post : '',
+            send : false
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -16,6 +18,11 @@ class PostForm extends Component {
     handleForm(e) {
         e.preventDefault();
         this.props.postHandler(this.state.post, this.state.title);
+        this.setState({
+            title: '',
+            post: '',
+            send: true
+        });
     }
 
     handleTitleChange(e) {
@@ -35,21 +42,33 @@ class PostForm extends Component {
     }
 
     render() {
-        return (
-            <div className="form">
+        let form = (
+            <div className="container bg-fb">
+                <h2>Plaats een nieuw bericht:</h2>
                 <form onSubmit={this.handleForm}>
-                    <label>
-                        Titel:
-                        <input type="text" name="title" value={this.state.title} onChange={this.handleTitleChange}/>
-                    </label>
-                    <label>
-                        Bericht:
-                        <textarea value={this.state.post} onChange={this.handlePostChange} name="post" />
-                    </label>
-                    <input type="submit" value="Verzenden" />
+                    <FormGroup controlId="formTitle">
+                        <ControlLabel>Titel</ControlLabel>
+                        <FormControl type="text" value={this.state.title} placeholder="Titel..." onChange={this.handleTitleChange}/>
+                    </FormGroup>
+                    <FormGroup controlId="formControlsPost">
+                        <ControlLabel>Bericht</ControlLabel>
+                        <FormControl componentClass="textarea" value={this.state.post} placeholder="Bericht..." onChange={this.handlePostChange}/>
+                    </FormGroup>
+                    <Button type="submit">Plaats</Button>
                 </form>
             </div>
         );
+        let succesMessage = (
+            <div className="container bg-fb">
+                <span>Uw bericht is geplaatst!</span>
+            </div>
+        );
+
+        if(this.state.send) {
+            return succesMessage;
+        } else {
+            return form;
+        }
     }
 }
 
