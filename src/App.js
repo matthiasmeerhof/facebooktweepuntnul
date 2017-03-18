@@ -8,31 +8,35 @@ import Overview from './components/Overview';
 class App extends Component {
     constructor() {
         super();
+        let name = '';
+        let posts = [];
+        if(localStorage.getItem("posts") !== null) {
+            posts = JSON.parse(localStorage.getItem("posts"));
+        }
+        if(localStorage.getItem("name") !== null) {
+            name = localStorage.getItem("name");
+        }
         this.state = {
-            name : '',
-            posts : []
+            name : name,
+            posts : posts
         };
         this.postHandler = this.postHandler.bind(this);
     }
 
     postHandler(post, title){
-        let posts = this.state.posts;
+        let posts = JSON.parse(localStorage.getItem('posts'));
         let newPost = {
-            title : title,
-            post: post,
-            author: this.state.name,
-            comments: [],
-            likes : 0
-        };
+                title : title,
+                post: post,
+                author: this.state.name,
+                comments: [],
+                likes : 0
+            };
         posts.push(newPost);
-        this.setState({
-            name : this.state.name,
-            posts : posts
-        });
+        localStorage.setItem('posts', JSON.stringify(posts));
     }
 
     render() {
-        console.log(this.state);
         return (
             <BrowserRouter>
                 <div>
