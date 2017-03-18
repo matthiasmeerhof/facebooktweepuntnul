@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router';
 
-// Css
+// CSS
 import './App.css';
 
 // Components
@@ -15,22 +15,12 @@ import NavBar from './components/NavBar';
 class App extends Component {
     constructor() {
         super();
-        let name = '';
-        let posts = [];
-        if(localStorage.getItem("posts") !== null) {
-            posts = JSON.parse(localStorage.getItem("posts"));
-        } else {
+        if(localStorage.getItem("posts") === null) {
             localStorage.setItem("posts", JSON.stringify([]));
         }
         if(localStorage.getItem("name") !== null) {
-            name = localStorage.getItem("name");
-        } else {
             localStorage.setItem("name", '');
         }
-        this.state = {
-            name : name,
-            posts : posts
-        };
         this.postHandler = this.postHandler.bind(this);
     }
 
@@ -52,7 +42,7 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Route path="/" component={NavBar} />
-                    <Route exact path="/" component={() => (<Overview posts={this.state.posts} />)}/>
+                    <Route exact path="/" component={() => (<Overview posts={JSON.parse(localStorage.getItem('posts'))} />)}/>
                     <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
                     <Route path="/login" component={Login} />
                 </div>

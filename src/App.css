@@ -22,3 +22,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.overview {
+  background-color: #f7f7f7;
+  border: 1px solid #ededed;
+  border-radius: 12px;
+}
