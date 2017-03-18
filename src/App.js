@@ -1,10 +1,16 @@
+// React-stuff
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { Route } from 'react-router';
+
+// Css
 import './App.css';
+
+// Components
 import PostForm from './components/PostForm';
-import { BrowserRouter } from 'react-router-dom'
-import { Route } from 'react-router'
 import Overview from './components/Overview';
-import Login from './components/Login'
+import Login from './components/Login';
+import NavBar from './components/NavBar';
 
 class App extends Component {
     constructor() {
@@ -45,6 +51,7 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
+                    <Route path="/" component={NavBar} />
                     <Route exact path="/" component={() => (<Overview posts={this.state.posts} />)}/>
                     <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
                     <Route path="/login" component={Login} />
