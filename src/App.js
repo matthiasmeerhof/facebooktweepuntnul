@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Login from './component/Login'
+import Login from './components/Login'
 
 class App extends Component {
   constructor() {
@@ -9,8 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Login />
-        <span>Status: {localStorage.getItem("loggedId")}</span>
+        <h1>APP!</h1>
       </div>     
     );
   }
