@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 class NavBar extends Component {
     render() {
+        let profileUrl = '/profile/' + encodeURI(localStorage.getItem('name'));
         return(
             <Navbar>
                 <Navbar.Header>
@@ -13,7 +14,7 @@ class NavBar extends Component {
                 </Navbar.Header>
                 <Nav pullLeft>
                     <NavItem eventKey={1}><Link to="/add">Nieuw bericht</Link></NavItem>
-                    <NavItem eventKey={2}><Link to="#">Profiel</Link></NavItem>
+                    <NavItem eventKey={2}><Link to={profileUrl}>Profiel</Link></NavItem>
                 </Nav>
                 <Nav pullRight>
                     <Navbar.Text>

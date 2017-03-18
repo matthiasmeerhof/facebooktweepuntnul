@@ -11,6 +11,7 @@ import PostForm from './components/PostForm';
 import Overview from './components/Overview';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import Profile from './components/Profile';
 
 class App extends Component {
     constructor() {
@@ -46,6 +47,7 @@ class App extends Component {
                     <div className="container overall">
                         <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
                         <Route path="/login" component={Login} />
+                        <Route path="/profile/:user" component={Profile} />
                     </div>
                 </div>
             </BrowserRouter>
