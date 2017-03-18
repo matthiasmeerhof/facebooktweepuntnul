@@ -13,9 +13,13 @@ class App extends Component {
         let posts = [];
         if(localStorage.getItem("posts") !== null) {
             posts = JSON.parse(localStorage.getItem("posts"));
+        } else {
+            localStorage.setItem("posts", JSON.stringify([]));
         }
         if(localStorage.getItem("name") !== null) {
             name = localStorage.getItem("name");
+        } else {
+            localStorage.setItem("name", '');
         }
         this.state = {
             name : name,
