@@ -1,36 +1,33 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, FormControl, FormGroup, Button, Glyphicon } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 class NavBar extends Component {
+    handleLogOut(e) {
+        localStorage.removeItem('name');
+        this.props.history.push("/login");
+    }
+
     render() {
         let profileUrl = '/profile/' + encodeURI(localStorage.getItem('name'));
-        return(
-            <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        <Link to="/">Facebook 2.0</Link>
-                    </Navbar.Brand>
-                </Navbar.Header>
-                <Nav pullLeft>
-                    <NavItem eventKey={1}><Link to="/add">Nieuw bericht</Link></NavItem>
-                    <NavItem eventKey={2}><Link to={profileUrl}>Profiel</Link></NavItem>
-                </Nav>
-                <Nav pullRight>
-                    <Navbar.Text>
-                        <Glyphicon glyph="user" /> {localStorage.getItem('name')}
-                    </Navbar.Text>
-                    <NavItem eventKey={3}><Link to="#">Logout</Link></NavItem>
-                </Nav>
-                <Navbar.Collapse>
-                    <Navbar.Form>
-                        <FormGroup>
-                            <FormControl type="text" placeholder="Zoek .. [Werkt nog niet]"/>
-                        </FormGroup>
-                        <Button type="submit">Submit</Button>
-                    </Navbar.Form>
-                </Navbar.Collapse>
-            </Navbar>
+        return (
+            <nav className="navbar navbar-default">
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <ul className="nav navbar-nav">
+                            <li><NavLink activeClassName="selected" className="navbar-brand" to="/">Facebook 2.0</NavLink ></li>
+                            <li><NavLink activeClassName="selected" to="/add">Nieuw bericht</NavLink ></li>
+                            <li><NavLink activeClassName="selected" to={profileUrl}>Profiel</NavLink ></li>
+                            <li><NavLink activeClassName="selected" onClick={this.handleLogOut.bind(this)} to="/">Logout</NavLink ></li>
+                        </ul>
+                    </div>
+                    <form className="navbar-form navbar-right">
+                        <div className="form-group">
+                            <input type="text" className="form-control" placeholder="Search" />
+                        </div>
+                        <button type="submit" className="btn btn-default">Search</button>
+                    </form>
+                </div>
+            </nav>
         )
     }
 }

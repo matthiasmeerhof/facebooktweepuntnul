@@ -1,7 +1,7 @@
 // React-stuff
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Route } from 'react-router';
+import { Route, Redirect } from 'react-router';
 
 // CSS
 import './App.css';
@@ -16,38 +16,50 @@ import Profile from './components/Profile';
 class App extends Component {
     constructor() {
         super();
-        if(localStorage.getItem("posts") === null) {
+        if (localStorage.getItem("posts") === null) {
             localStorage.setItem("posts", JSON.stringify([]));
         }
-        if(localStorage.getItem("name") !== null) {
+        if (localStorage.getItem("name") !== null) {
             localStorage.setItem("name", 'Brent Lobbezoo');
+        }
+        this.state = {
+            loggedIn: false
         }
         this.postHandler = this.postHandler.bind(this);
     }
 
-    postHandler(post, title){
+    postHandler(post, title) {
         let posts = JSON.parse(localStorage.getItem('posts'));
         let newPost = {
-                title : title,
-                post: post,
-                author: localStorage.getItem('name'),
-                comments: [],
-                likes : 0
-            };
+            key: posts.length,
+            title: title,
+            post: post,
+            author: localStorage.getItem('name'),
+            comments: [],
+            likes: 0
+        };
         posts.push(newPost);
         localStorage.setItem('posts', JSON.stringify(posts));
     }
 
+    login() {
+        this.setState({
+            loggedIn: true
+        })
+
+    }
+
     render() {
+        let loggedIn = this.state.loggedIn;
         return (
             <BrowserRouter>
                 <div>
-                    <Route path="/" component={NavBar} />
-                    <Route exact path="/" component={() => (<Overview posts={JSON.parse(localStorage.getItem('posts'))} />)}/>
+                    <NavBar />
+                    <Route exact path="/" component={() => loggedIn ? (<Overview posts={JSON.parse(localStorage.getItem('posts'))} />) : <Redirect to="/login" />} />
                     <div className="container overall">
-                        <Route path="/add" component={() => (<PostForm postHandler={this.postHandler} />)} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/profile/:user" component={Profile} />
+                        <Route path="/add" component={() => loggedIn ? (<PostForm postHandler={this.postHandler} />) : <Redirect to="/login" />} />
+                        <Route path="/login" component={(prop) => <Login route={prop} login={this.login.bind(this)} />} />
+                        <Route path="/profile/:user" component={() => loggedIn ? (<Profile />) : <Redirect to="/login" />} />
                     </div>
                 </div>
             </BrowserRouter>

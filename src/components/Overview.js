@@ -3,7 +3,7 @@ import Post from './Post';
 
 class Overview extends Component {
     render() {
-        let posts = this.props.posts.map((post) => (<Post post={post} key={post.title} />));
+        let posts = this.props.posts.map((post) => (<Post post={post} key={post.key} />));
         return (
             <div className="container bg-fb">
                 <h2>Berichten:</h2>
