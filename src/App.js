@@ -1,21 +1,16 @@
 // React-stuff
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { Route, Redirect } from 'react-router';
+
 
 // CSS
 import './App.css';
 
-// Components
-import PostForm from './components/PostForm';
-import Overview from './components/Overview';
-import Login from './components/Login';
 import NavBar from './components/NavBar';
-import Profile from './components/Profile';
+import Overview from './components/Overview';
 
 class App extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         if (localStorage.getItem("posts") === null) {
             localStorage.setItem("posts", JSON.stringify([]));
         }
@@ -50,19 +45,10 @@ class App extends Component {
     }
 
     render() {
-        let loggedIn = this.state.loggedIn;
         return (
-            <BrowserRouter>
-                <div>
-                    <NavBar />
-                    <Route exact path="/" component={() => loggedIn ? (<Overview posts={JSON.parse(localStorage.getItem('posts'))} />) : <Redirect to="/login" />} />
-                    <div className="container overall">
-                        <Route path="/add" component={() => loggedIn ? (<PostForm postHandler={this.postHandler} />) : <Redirect to="/login" />} />
-                        <Route path="/login" component={(prop) => <Login route={prop} login={this.login.bind(this)} />} />
-                        <Route path="/profile/:user" component={() => loggedIn ? (<Profile />) : <Redirect to="/login" />} />
-                    </div>
-                </div>
-            </BrowserRouter>
+            <div className="App">
+                <NavBar />
+            </div>
         )
     }
 }
