@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Col, ControlLabel, Button, FormControl } from 'react-bootstrap';
+import Auth from '../Auth';
+import ProfileHandler from '../utils/ProfileHandler';
 
 class Login extends Component {
     handleChange(e) {
-        localStorage.setItem('name', e.target.value);
+        ProfileHandler.name = e.target.value;
     }
 
     handleOnClick() {
-        let name = localStorage.getItem('name');
+        let name = ProfileHandler.name;
         if (name !== null) {
             if (name.length > 0) {
-                this.props.login();
-                this.props.route.history.push("/");
+                Auth.login();
+                this.props.history.push("/");
             }
         }
     }
 
     getValidationState() {
-        const length = localStorage.getItem('name');
+        const length = ProfileHandler.name;
         if (length > 0) return 'success';
     }
 

@@ -6,42 +6,17 @@ import React, { Component } from 'react';
 import './App.css';
 
 import NavBar from './components/NavBar';
-import Overview from './components/Overview';
+
+import ProfileHandler from './utils/ProfileHandler';
+import PostsHandler from './utils/PostsHandler';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        if (localStorage.getItem("posts") === null) {
-            localStorage.setItem("posts", JSON.stringify([]));
+    constructor() {
+        super();
+        if (ProfileHandler.GetProfile() === null || PostsHandler.GetPosts() === null) {
+            ProfileHandler.SetupProfile();
+            PostsHandler.SetupPosts();
         }
-        if (localStorage.getItem("name") !== null) {
-            localStorage.setItem("name", 'Brent Lobbezoo');
-        }
-        this.state = {
-            loggedIn: false
-        }
-        this.postHandler = this.postHandler.bind(this);
-    }
-
-    postHandler(post, title) {
-        let posts = JSON.parse(localStorage.getItem('posts'));
-        let newPost = {
-            key: posts.length,
-            title: title,
-            post: post,
-            author: localStorage.getItem('name'),
-            comments: [],
-            likes: 0
-        };
-        posts.push(newPost);
-        localStorage.setItem('posts', JSON.stringify(posts));
-    }
-
-    login() {
-        this.setState({
-            loggedIn: true
-        })
-
     }
 
     render() {

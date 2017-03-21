@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router';
+import PrivateRoute from  './customRoutes/PrivateRoute';
 
 // Components
 import App from './App';
@@ -17,11 +18,11 @@ import Overview from './components/Overview';
 ReactDOM.render(
   <BrowserRouter>
     <div>
-      <Route path="/" component={App} />
-      <Route exact path="/" component={Overview} />
-      <Route path="/add" component={PostForm} />
+      <Route path="/" component={App} /> 
+      <PrivateRoute exact path="/" component={Overview} />
+      <PrivateRoute path="/add" component={PostForm} />
+      <PrivateRoute path="/profile/:user" component={Profile} />
       <Route path="/login" component={Login} />
-      <Route path="/profile/:user" component={Profile} />
     </div>
   </BrowserRouter>
   ,
