@@ -1,58 +1,50 @@
 import React, { Component } from 'react'
 import { FormGroup, ControlLabel, Button, FormControl } from 'react-bootstrap';
-import PostsHandler from '../utils/PostsHandler';
-import ProfileHandler from '../utils/ProfileHandler';
+import { addPost } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class PostForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: '',
-            post: '',
-            send: false
+            message: ''
         };
 
-        this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.handlePostChange = this.handlePostChange.bind(this);
-        this.handleForm = this.handleForm.bind(this);
+        this.handleTitleChange      = this.handleTitleChange.bind(this);
+        this.handleMessageChange    = this.handleMessageChange.bind(this);
+        this.handleForm             = this.handleForm.bind(this);
     }
 
     handleForm(e) {
         e.preventDefault();
-        this.postHandler(this.state.post, this.state.title);
+        let newPost = {
+            title: this.state.title,
+            message: this.state.message,
+            author: 'Unkown Author',
+            likes: 0,
+            comments: []
+        };
+        this.props.addPost(newPost);
         this.setState({
             title: '',
-            post: '',
-        });
-        this.props.history.push("/");
+            message: ''
+        })
     }
 
     handleTitleChange(e) {
         e.preventDefault();
         this.setState({
-            title: e.target.value,
-            post: this.state.post
+            title: e.target.value
         })
     }
 
-    handlePostChange(e) {
+    handleMessageChange(e) {
         e.preventDefault();
         this.setState({
-            title: this.state.title,
-            post: e.target.value
+            message: e.target.value
         })
-    }
-
-    postHandler(post, title) {
-        let newPost = {
-            title: title,
-            post: post,
-            author: ProfileHandler.name,
-            comments: [],
-            likes: 0
-        };
-        PostsHandler.AddPost(newPost);
-        this.props.handler(PostsHandler.GetPosts());
     }
 
     render() {
@@ -66,7 +58,7 @@ class PostForm extends Component {
                     </FormGroup>
                     <FormGroup controlId="formControlsPost">
                         <ControlLabel>Bericht</ControlLabel>
-                        <FormControl componentClass="textarea" value={this.state.post} placeholder="Bericht..." onChange={this.handlePostChange} />
+                        <FormControl componentClass="textarea" value={this.state.message} placeholder="Bericht..." onChange={this.handleMessageChange} />
                     </FormGroup>
                     <Button type="submit">Plaats</Button>
                 </form>
@@ -75,4 +67,14 @@ class PostForm extends Component {
     }
 }
 
-export default PostForm;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({addPost : addPost}, dispatch)
+}
+
+function mapStateToProps(state) {
+    return {
+        posts: state.posts
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
