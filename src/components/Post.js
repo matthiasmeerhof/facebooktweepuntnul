@@ -61,7 +61,7 @@ class Post extends Component {
                 <div>
                     <div className="postHeader">
                         <Glyphicon className="user-profile-icon" glyph="glyphicon glyphicon-user"/>
-                        <span className="title"><p><b>{ this.props.post.author }</b> <i>plaatste een bericht</i> <b>{this.props.post.title}</b>:</p></span>
+                        <span className="title"><p><b>{ this.props.post.author }</b><i>plaatste een bericht</i><b>{this.props.post.title}</b>:</p></span>
                     </div>
                     <div className="postBody">
                         <div>

@@ -52,6 +52,7 @@ class PostForm extends Component {
             likes: 0
         };
         PostsHandler.AddPost(newPost);
+        this.props.handler(PostsHandler.GetPosts());
     }
 
     render() {
