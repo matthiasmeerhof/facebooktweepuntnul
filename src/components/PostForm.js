@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FormGroup, ControlLabel, Button, FormControl } from 'react-bootstrap';
 import PostsHandler from '../utils/PostsHandler';
+import ProfileHandler from '../utils/ProfileHandler';
 
 class PostForm extends Component {
     constructor(props) {
@@ -46,7 +47,7 @@ class PostForm extends Component {
         let newPost = {
             title: title,
             post: post,
-            author: localStorage.getItem('name'),
+            author: ProfileHandler.name,
             comments: [],
             likes: 0
         };

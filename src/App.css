@@ -30,7 +30,12 @@
 }
 
 .options span {
-  margin-right: 12px;
+  margin-right: 25px;
+}
+
+.options {
+  border: 1px solid #ededed;
+  border-radius: 1px;
 }
 
 .postSeperator {
@@ -38,4 +43,18 @@
   height: 1px;
   background: #333;
   background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+.user-profile-icon {
+  font-size: 2em !important;
+}
+
+.postHeader * {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 0.9em;
+}
+
+.postComments p {
+  margin-left: 20px;
 }

@@ -17,6 +17,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "webpack --watch",
+    "web": "npm run watch &  webpack-dev-server --content-base ./ --port 3000"
   }
 }
