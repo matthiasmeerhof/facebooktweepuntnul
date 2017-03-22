@@ -1,8 +1,10 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router';
@@ -14,40 +16,23 @@ import PostForm from './components/PostForm';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Overview from './components/Overview';
-import PostsHandler from './utils/PostsHandler';
 
-class Index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activePosts : PostsHandler.GetPosts() || []
-        };
-        this.updateActivePosts = this.updateActivePosts.bind(this);
-    }
+//Reducer
+import allReducers from './reducers/index';
 
-    updateActivePosts(posts){
-        this.setState({
-            activePosts : posts
-        })
-    }
-
-    render(){
-        return (
-            <BrowserRouter>
-                <div>
-                    <Route path="/" component={() => <App handler={this.updateActivePosts}/>} />
-                    <PrivateRoute exact path="/" component={() => <Overview posts={this.state.activePosts}/>} />
-                    <PrivateRoute path="/add" component={() => <PostForm handler={this.updateActivePosts}/>} />
-                    <PrivateRoute path="/profile/:user" component={Profile} />
-                    <Route path="/login" component={Login} />
-                </div>
-            </BrowserRouter>
-        )
-    }
-}
+const store = createStore(allReducers);
 
 ReactDOM.render(
-  <Index />
-  ,
+    <Provider store={store}>
+        <BrowserRouter>
+            <div>
+                <Route path="/" component={App} />
+                <PrivateRoute exact path="/" component={Overview} />
+                <PrivateRoute path="/add" component={PostForm} />
+                <PrivateRoute path="/profile/:user" component={Profile} />
+                <Route path="/login" component={Login} />
+            </div>
+        </BrowserRouter>
+    </Provider>,
   document.getElementById('root')
 );
