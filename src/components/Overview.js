@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class Overview extends Component { 
     render() {
-        console.log(this.props.posts);
         let posts = this.props.posts.map((post, index) => (<Post post={post} key={index} />));
         return (
             <div className="container bg-fb">

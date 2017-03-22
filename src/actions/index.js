@@ -5,3 +5,11 @@ export const addPost = (post) => {
         payload : post
     }
 };
+
+export const login = (user) => {
+    console.log("Succesfully logged in as: " + user.name);
+    return {
+        type : "USER_LOGIN",
+        payload : user
+    }
+};

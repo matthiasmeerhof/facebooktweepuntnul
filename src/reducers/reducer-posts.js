@@ -33,10 +33,8 @@ const initialState = [
 ];
 
 const PostReducer = (state = initialState, action) => {
-    console.log(action); //Temporarily logging all actions
     switch (action.type) {
         case "ADD_POST":
-            console.log(state);
             state.push(action.payload);
             return state;
         default:
