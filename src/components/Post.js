@@ -68,9 +68,10 @@ class Post extends Component {
                             <span className="post">{this.props.post.post} </span>
                         </div>
                     </div>
+                    <hr />
                     <div className="options">
-                        <span onClick={this.showCommentBar}><small><Glyphicon glyph="glyphicon glyphicon-comment"/>comment</small></span>
-                        <span onClick={this.addLike}><small><Glyphicon glyph="glyphicon glyphicon-thumbs-up"/>like ({this.state.likes})</small></span>
+                        <button onClick={this.showCommentBar} type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-comment" aria-hidden="true" />Comment</button>
+                        <button onClick={this.addLike} type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" />Like ({this.state.likes})</button>
                     </div>
                     {
                         (this.state.show) ?

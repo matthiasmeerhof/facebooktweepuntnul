@@ -29,13 +29,8 @@
   border-radius: 12px;
 }
 
-.options span {
+.options button {
   margin-right: 25px;
-}
-
-.options {
-  border: 1px solid #ededed;
-  border-radius: 1px;
 }
 
 .postSeperator {
