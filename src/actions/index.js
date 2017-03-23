@@ -32,3 +32,10 @@ export const addLike = (index) => {
         payload : index
     }
 };
+
+export const logout = () => {
+    console.log("Succesfully logged out");
+    return {
+        type : "USER_LOGOUT"
+    }
+};
