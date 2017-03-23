@@ -11,7 +11,6 @@ class PostForm extends Component {
             title: '',
             message: ''
         };
-
         this.handleTitleChange      = this.handleTitleChange.bind(this);
         this.handleMessageChange    = this.handleMessageChange.bind(this);
         this.handleForm             = this.handleForm.bind(this);
@@ -22,7 +21,7 @@ class PostForm extends Component {
         let newPost = {
             title: this.state.title,
             message: this.state.message,
-            author: 'Unkown Author',
+            author: this.props.user.name,
             likes: 0,
             comments: []
         };
@@ -30,7 +29,8 @@ class PostForm extends Component {
         this.setState({
             title: '',
             message: ''
-        })
+        });
+        this.props.history.push('/');
     }
 
     handleTitleChange(e) {
@@ -73,7 +73,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        user: state.user
     }
 }
 

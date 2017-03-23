@@ -37,6 +37,12 @@ const PostReducer = (state = initialState, action) => {
         case "ADD_POST":
             state.push(action.payload);
             return state;
+        case "POST_COMMENT" :
+            let allPosts = state;
+            console.log(allPosts);
+            console.log(allPosts[action.payload.index]);
+            allPosts[action.payload.index].comments.push(action.payload.comment);
+            return allPosts;
         default:
             return state;
     }

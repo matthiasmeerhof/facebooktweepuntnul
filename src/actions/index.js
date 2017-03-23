@@ -13,3 +13,14 @@ export const login = (user) => {
         payload : user
     }
 };
+
+export const addComment = (comment, index) => {
+    console.log("You've posted a comment!");
+    return {
+        type : "POST_COMMENT",
+        payload : {
+            comment : comment,
+            index : index
+        }
+    }
+};

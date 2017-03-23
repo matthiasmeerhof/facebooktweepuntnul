@@ -19,7 +19,7 @@ class Routes extends Component {
                     <Route path="/" component={App}/>
                     <Route path="/login" component={Login}/>
                     <Route exact path="/" render={() => (loggedIn ? (<Overview />) : (<Redirect to="/login"/>))}/>
-                    <Route path="/add" component={() => (loggedIn ? (<PostForm />) : (<Redirect to="/login"/>))}/>
+                    <Route path="/add" component={({history}) => (loggedIn ? (<PostForm history={history} />) : (<Redirect to="/login"/>))}/>
                     <Route path="/profile/:user" component={() => (loggedIn ? (<Profile />) : (<Redirect to="/login"/>))}/>
                 </div>
             </BrowserRouter>
