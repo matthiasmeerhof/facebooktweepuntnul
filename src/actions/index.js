@@ -39,3 +39,11 @@ export const logout = () => {
         type : "USER_LOGOUT"
     }
 };
+
+export const search = (keyword) => {
+    console.log("You've initiated a search!");
+    return {
+        type: "SEARCH",
+        payload: keyword
+    }
+}

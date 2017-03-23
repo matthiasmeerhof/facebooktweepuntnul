@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 class Profile extends Component {   
     render() {
-        console.log(this.props);
         return (
             <div className="container bg-fb">
                 <p>Dit is het profile van: {this.props.name}</p>

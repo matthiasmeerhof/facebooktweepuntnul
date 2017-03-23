@@ -1,22 +1,38 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../actions/index';
+import { logout, search } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class NavBar extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handleLogOut = this.handleLogOut.bind(this);
     }
 
-    handleLogOut(e){
+    handleLogOut(e) {
         e.preventDefault();
         this.props.logout();
     }
 
+    handleSearch(e) {
+        e.preventDefault();
+        if (this.state !== null && this.props.user.loggedIn) {
+            this.props.search(this.state);
+        }
+    }
+
+    handleKeyword(e) {
+        e.preventDefault();
+
+        this.setState({
+            keyword: e.target.value
+        });
+
+    }
+
     render() {
-        let profileUrl = '/profile/' + encodeURI('tmpname');
+        let profileUrl = '/profile/' + encodeURI(this.props.user.name);
         return (
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
@@ -30,9 +46,9 @@ class NavBar extends Component {
                     </div>
                     <form className="navbar-form navbar-right">
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Search" />
+                            <input type="text" onChange={this.handleKeyword.bind(this)} className="form-control" placeholder="Search" />
                         </div>
-                        <button type="submit" className="btn btn-default">Search</button>
+                        <button type="submit" onClick={this.handleSearch.bind(this)} className="btn btn-default">Search</button>
                     </form>
                 </div>
             </nav>
@@ -40,15 +56,17 @@ class NavBar extends Component {
     }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
-        posts: state.posts
+        posts: state.posts,
+        user: state.user
     }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        logout : logout
+        logout: logout,
+        search: search
     }, dispatch);
 }
 
