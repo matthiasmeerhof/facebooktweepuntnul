@@ -24,3 +24,11 @@ export const addComment = (comment, index) => {
         }
     }
 };
+
+export const addLike = (index) => {
+    console.log("You've liked a comment!");
+    return {
+        type : "POST_LIKE",
+        payload : index
+    }
+};

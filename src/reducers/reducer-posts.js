@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+
 const initialState = [
     {
         title: 'Lorem ipsum dolor sit amet',
@@ -33,16 +35,29 @@ const initialState = [
 ];
 
 const PostReducer = (state = initialState, action) => {
+    let index = 0;
     switch (action.type) {
         case "ADD_POST":
             state.push(action.payload);
             return state;
         case "POST_COMMENT" :
-            let allPosts = state;
-            console.log(allPosts);
-            console.log(allPosts[action.payload.index]);
-            allPosts[action.payload.index].comments.push(action.payload.comment);
-            return allPosts;
+            index = action.payload.index;
+            return update(state, {
+                [index]: {
+                    comments: {
+                        $push: [action.payload.comment]
+                    }
+                }
+            });
+        case "POST_LIKE" :
+            index = action.payload;
+            return update(state, {
+                [index]: {
+                    likes: {
+                        $apply: function(like) { return like + 1;}
+                    }
+                }
+            });
         default:
             return state;
     }

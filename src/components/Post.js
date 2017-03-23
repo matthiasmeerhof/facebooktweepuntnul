@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Glyphicon } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { addComment } from '../actions/index';
+import { addComment, addLike } from '../actions/index';
 
 class Post extends Component {
     constructor(props) {
@@ -15,6 +15,7 @@ class Post extends Component {
         this.toggleCommentForm  = this.toggleCommentForm.bind(this);
         this.onChangeComment    = this.onChangeComment.bind(this);
         this.handleCommentForm  = this.handleCommentForm.bind(this);
+        this.onLikePress        = this.onLikePress.bind(this);
     }
 
     toggleCommentForm(e) {
@@ -22,6 +23,11 @@ class Post extends Component {
         this.setState({
             show : !this.state.show
         })
+    }
+
+    onLikePress(e) {
+        e.preventDefault();
+        this.props.addLike(this.props.index);
     }
 
     onChangeComment(e) {
@@ -56,7 +62,7 @@ class Post extends Component {
                     <hr />
                     <div className="options">
                         <button type="button" className="btn btn-default btn-xs" onClick={this.toggleCommentForm}><span className="glyphicon glyphicon-comment" aria-hidden="true" />Comment</button>
-                        <button type="button" className="btn btn-default btn-xs"><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" />Like ({this.props.post.likes})</button>
+                        <button type="button" className="btn btn-default btn-xs" onClick={this.onLikePress}><span className="glyphicon glyphicon-thumbs-up" aria-hidden="true" />Like ({this.props.post.likes})</button>
                     </div>
                     {
                         (this.state.show) ?
@@ -87,7 +93,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({addComment : addComment}, dispatch)
+    return bindActionCreators({
+        addComment : addComment,
+        addLike : addLike
+    }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);
