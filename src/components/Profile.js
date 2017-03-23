@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
-import ProfileHandler from '../utils/ProfileHandler';
+import { connect } from 'react-redux';
 
 class Profile extends Component {   
     render() {
+        console.log(this.props);
         return (
             <div className="container bg-fb">
-                <p>Dit is het profile van: {ProfileHandler.name}</p>
+                <p>Dit is het profile van: {this.props.name}</p>
             </div>
         );
     }
 }
 
-export default Profile;
+function mapStateToProps(state) {
+    return {
+        name : state.user.name,
+    }
+}
+
+
+export default connect(mapStateToProps)(Profile);
