@@ -1,25 +1,39 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Col, ControlLabel, Button, FormControl } from 'react-bootstrap';
-import Auth from '../Auth';
-import ProfileHandler from '../utils/ProfileHandler';
+import { login } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            name : ''
+        };
+        this.handleChange   = this.handleChange.bind(this);
+        this.handleOnClick  = this.handleOnClick.bind(this);
+    }
+
     handleChange(e) {
-        ProfileHandler.name = e.target.value;
+        this.setState({
+            name : e.target.value
+        })
     }
 
     handleOnClick() {
-        let name = ProfileHandler.name;
-        if (name !== null) {
-            if (name.length > 0) {
-                Auth.login();
-                this.props.history.push("/");
-            }
-        }
+        let user = {
+            name : this.state.name,
+            loggedIn : true
+        };
+        this.props.login(user);
+        this.setState({
+            name : ''
+        });
+        this.props.history.push('/');
     }
 
     getValidationState() {
-        const length = ProfileHandler.name;
+        const length = this.state.name.length;
         if (length > 0) return 'success';
     }
 
@@ -31,12 +45,12 @@ class Login extends Component {
                     <FormGroup controlId="formHorizontalEmail" validationState={this.getValidationState()}>
                         <Col componentClass={ControlLabel} sm={2}>Name</Col>
                         <Col sm={5}>
-                            <FormControl type="name" placeholder="Name" onChange={this.handleChange.bind(this)} />
+                            <FormControl type="name" placeholder="Name" value={this.state.name} onChange={this.handleChange} />
                         </Col>
                     </FormGroup>
                     <FormGroup validationState={this.getValidationState()}>
                         <Col smOffset={2} sm={10}>
-                            <Button onClick={this.handleOnClick.bind(this)}>Sign in</Button>
+                            <Button onClick={this.handleOnClick}>Sign in</Button>
                         </Col>
                     </FormGroup>
                 </Form>
@@ -45,4 +59,8 @@ class Login extends Component {
     }
 }
 
-export default Login;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({login : login}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(Login);
